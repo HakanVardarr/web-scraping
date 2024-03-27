@@ -8,14 +8,13 @@ import (
 )
 
 func main() {
-	cats, err := categories()
-
+	categories, err := getCategories()
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}
 
-	m := newModel(cats)
+	m := NewModel(categories)
 
 	p := tea.NewProgram(m, tea.WithAltScreen())
 

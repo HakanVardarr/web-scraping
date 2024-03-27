@@ -2,6 +2,7 @@ package main
 
 import (
 	tea "github.com/charmbracelet/bubbletea"
+	"github.com/pkg/browser"
 )
 
 type model struct {
@@ -9,10 +10,11 @@ type model struct {
 	categories               []category
 	category                 *category
 	cursor, cursorSave, page int
+	loading                  bool
 }
 
-func newModel(categories []category) model {
-	return model{0, 0, categories, nil, 0, 0, 1}
+func NewModel(categories []category) model {
+	return model{0, 0, categories, nil, 0, 0, 1, false}
 
 }
 
@@ -31,7 +33,9 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				m.category = &m.categories[m.cursor]
 				m.cursorSave = m.cursor
 				m.cursor = 0
-
+				m.loading = true
+			} else {
+				browser.OpenURL("https://www.trendyol.com" + m.category.products.items[m.cursor].link)
 			}
 		case "esc":
 			if m.category != nil {
@@ -45,19 +49,19 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case "right":
 			if m.category != nil {
 				m.page += 1
-				m.category.Products.Clear()
+				m.category.products.Clear()
 			}
 		case "left":
 			if m.category != nil {
 				if m.page > 1 {
 					m.page -= 1
-					m.category.Products.Clear()
+					m.category.products.Clear()
 				}
 			}
 
 		case "down":
 			if m.category != nil {
-				if m.cursor < m.category.Products.Length()-1 {
+				if m.cursor < m.category.products.Length()-1 {
 					m.cursor++
 				}
 			} else {
