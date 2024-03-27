@@ -11,22 +11,19 @@ type category struct {
 	Link string
 }
 
-func categories() []category {
+func categories() ([]category, error) {
 	bytes, err := os.ReadFile("data/categories.json")
 
 	if err != nil {
-		fmt.Println("categories: unable to load config file.")
-		os.Exit(1)
+		return nil, fmt.Errorf("categories: unable to read JSON file: %w", err)
 	}
 
 	var categories []category
-
 	err = json.Unmarshal(bytes, &categories)
 
 	if err != nil {
-		fmt.Println("JSON decode error!")
-		os.Exit(1)
+		return nil, fmt.Errorf("categories: unable to read JSON file: %w", err)
 	}
 
-	return categories
+	return categories, nil
 }

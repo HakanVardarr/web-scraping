@@ -13,8 +13,16 @@ const (
 
 func main() {
 
+	cats, err := categories()
+
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+
 	m := model{
-		categories(),
+		0, 0,
+		cats,
 		nil,
 		0,
 	}
