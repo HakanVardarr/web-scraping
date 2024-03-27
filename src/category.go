@@ -7,8 +7,13 @@ import (
 )
 
 type category struct {
-	Name string
-	Link string
+	Name  string `json:"name"`
+	Link  string `json:"link"`
+	Items []item
+}
+
+type item struct {
+	Name, Price string
 }
 
 func categories() ([]category, error) {

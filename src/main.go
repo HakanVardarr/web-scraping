@@ -7,10 +7,6 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 )
 
-const (
-	URL = "https://www.trendyol.com/"
-)
-
 func main() {
 
 	cats, err := categories()
@@ -20,12 +16,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	m := model{
-		0, 0,
-		cats,
-		nil,
-		0,
-	}
+	m := newModel(cats)
 
 	p := tea.NewProgram(m, tea.WithAltScreen())
 
