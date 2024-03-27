@@ -8,7 +8,6 @@ import (
 )
 
 func main() {
-
 	cats, err := categories()
 
 	if err != nil {
