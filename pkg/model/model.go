@@ -1,4 +1,4 @@
-package main
+package model
 
 import (
 	tea "github.com/charmbracelet/bubbletea"
@@ -10,11 +10,10 @@ type model struct {
 	categories               []category
 	category                 *category
 	cursor, cursorSave, page int
-	loading                  bool
 }
 
-func NewModel(categories []category) model {
-	return model{0, 0, categories, nil, 0, 0, 1, false}
+func New(categories []category) model {
+	return model{0, 0, categories, nil, 0, 0, 1}
 
 }
 
@@ -33,7 +32,6 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				m.category = &m.categories[m.cursor]
 				m.cursorSave = m.cursor
 				m.cursor = 0
-				m.loading = true
 			} else {
 				browser.OpenURL("https://www.trendyol.com" + m.category.products.items[m.cursor].link)
 			}

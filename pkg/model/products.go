@@ -1,4 +1,4 @@
-package main
+package model
 
 import (
 	"fmt"
@@ -43,8 +43,6 @@ func (p *products) GetItems(m model) {
 		p.items = append(p.items, product{name, price, link})
 
 	}
-
-	m.loading = false
 
 }
 

@@ -4,17 +4,19 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/HakanVardarrhakan/web-scraping/pkg/model"
 	tea "github.com/charmbracelet/bubbletea"
 )
 
 func main() {
-	categories, err := getCategories()
+	categories, err := model.Categories()
+
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}
 
-	m := NewModel(categories)
+	m := model.New(categories)
 
 	p := tea.NewProgram(m, tea.WithAltScreen())
 

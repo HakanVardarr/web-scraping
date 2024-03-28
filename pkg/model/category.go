@@ -1,4 +1,4 @@
-package main
+package model
 
 import (
 	"encoding/json"
@@ -38,7 +38,7 @@ func (c *category) View(m model) string {
 	return container.Render(content.String())
 }
 
-func getCategories() ([]category, error) {
+func Categories() ([]category, error) {
 	bytes, err := os.ReadFile("data/categories.json")
 
 	if err != nil {
